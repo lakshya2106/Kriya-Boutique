@@ -1,0 +1,63 @@
+// ── SEED ROUTE ────────────────────────────────────────
+// POST /api/seed  (admin only)
+// Populates DB with default categories, testimonials, brand settings if empty
+const router = require('express').Router()
+const auth   = require('../middleware/auth')
+const { Category, Testimonial, Brand } = require('../models')
+const defaults = require('../config/brandDefaults')
+
+router.post('/', auth, async (req, res) => {
+  try {
+    const results = {}
+
+    // ── Seed categories if empty ──
+    const catCount = await Category.countDocuments()
+    if (catCount === 0) {
+      await Category.insertMany([
+        { id: 'all',          label: 'All',              color: '#c8a45a', order: 0 },
+        { id: 'bridal',       label: 'Bridal',           color: '#c4766a', order: 1 },
+        { id: 'festive',      label: 'Festive',          color: '#9b7fc4', order: 2 },
+        { id: 'indo-western', label: 'Indo-Western',     color: '#5a8a6e', order: 3 },
+        { id: 'bespoke',      label: 'Custom / Bespoke', color: '#c8a45a', order: 4 },
+        { id: 'new',          label: 'New Arrivals',     color: '#e0a870', order: 5 },
+      ])
+      results.categories = 'seeded 6 categories'
+    } else {
+      results.categories = `skipped (${catCount} already exist)`
+    }
+
+    // ── Seed testimonials if empty ──
+    const testCount = await Testimonial.countDocuments()
+    if (testCount === 0) {
+      await Testimonial.insertMany([
+        { name: 'Priya Sharma',  occasion: 'Bridal Lehenga — December 2024',      rating: 5, text: 'I wore a Kriya Boutique lehenga for my wedding and I have never felt more beautiful. Every guest asked where I got it. The embroidery is just stunning.',         location: 'Udaipur',   order: 0 },
+        { name: 'Meera Agarwal', occasion: 'Custom Sangeet Outfit — October 2024', rating: 5, text: 'The bespoke service is worth every rupee. They understood exactly what I wanted and delivered something even more beautiful than I had imagined.',               location: 'Delhi',     order: 1 },
+        { name: 'Ananya Patel',  occasion: 'Festive Lehenga — November 2024',      rating: 5, text: 'Ordered a festive lehenga for Diwali. It arrived on time, perfectly fitted, and the colours were even more vibrant in person than in the photos.',                location: 'Mumbai',    order: 2 },
+        { name: 'Riya Joshi',    occasion: 'Reception Lehenga — January 2025',     rating: 5, text: 'From the first consultation to final delivery, the entire experience was magical. My lehenga was the talk of the reception!',                                    location: 'Udaipur',   order: 3 },
+        { name: 'Kavya Mehta',   occasion: 'Indo-Western Set — March 2025',        rating: 5, text: 'I wanted something that blended traditional and modern — and they nailed it completely. My outfit was unique, comfortable, and absolutely gorgeous.',             location: 'Bangalore', order: 4 },
+      ])
+      results.testimonials = 'seeded 5 testimonials'
+    } else {
+      results.testimonials = `skipped (${testCount} already exist)`
+    }
+
+    // ── Seed brand settings if empty ──
+    const brandCount = await Brand.countDocuments()
+    if (brandCount === 0) {
+      await Promise.all(
+        Object.entries(defaults).map(([key, value]) =>
+          Brand.findOneAndUpdate({ key }, { key, value }, { upsert: true, new: true })
+        )
+      )
+      results.brand = 'seeded from config/brandDefaults.js'
+    } else {
+      results.brand = `skipped (${brandCount} settings already exist — edit via Admin Panel)`
+    }
+
+    res.json({ message: 'Seed complete', results })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
+module.exports = router

@@ -1,0 +1,389 @@
+.showcase {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--deep);
+}
+
+/* ── SLIDES ──────────────────────────────────────────── */
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.slideActive {
+  opacity: 1;
+  pointer-events: all;
+  z-index: 2;
+}
+
+.slidePrev {
+  opacity: 1;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Enter from bottom (scroll down) */
+.slideEnterDown {
+  animation: enterFromBottom 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* Enter from top (scroll up) */
+.slideEnterUp {
+  animation: enterFromTop 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* Exit upward (scroll down — current slides up) */
+.slideExitUp {
+  animation: exitToTop 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* Exit downward (scroll up — current slides down) */
+.slideExitDown {
+  animation: exitToBottom 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+/* ── PHOTO BACKGROUND ────────────────────────────────── */
+.photoBg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.08);
+  transition: transform 6s ease-out;
+  will-change: transform;
+}
+
+/* Ken Burns — subtle zoom when slide is active */
+.photoActive {
+  transform: scale(1.0);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,  rgba(10, 8, 5, 0.82) 0%, rgba(10, 8, 5, 0.35) 55%, transparent 100%),
+    linear-gradient(to top,    rgba(10, 8, 5, 0.6)  0%, transparent 50%),
+    linear-gradient(to bottom, rgba(10, 8, 5, 0.4)  0%, transparent 30%);
+}
+
+.colorGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 1s ease;
+}
+
+/* ── TEXT CONTENT ────────────────────────────────────── */
+.content {
+  position: absolute;
+  left: 8vw;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 500px;
+  z-index: 5;
+}
+
+/* Base state — hidden */
+.tag, .name, .nameSub, .desc, .ctaRow {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Animate in when slide is active */
+.contentIn {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.tag {
+  font-size: 0.52rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.nameSub {
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+}
+
+.desc {
+  font-size: 0.78rem;
+  line-height: 1.95;
+  color: rgba(247, 242, 234, 0.65);
+  max-width: 380px;
+  margin-bottom: 2.2rem;
+}
+
+.ctaRow {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.cta {
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.6rem;
+  border: 1px solid;
+  border-radius: 2px;
+  transition: background 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--gold);
+  color: var(--deep) !important;
+  border-color: var(--gold) !important;
+}
+
+/* ── BIG BACKGROUND NUMBER ───────────────────────────── */
+.bigNumber {
+  position: absolute;
+  right: 6vw;
+  bottom: 8vh;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 16vw, 14rem);
+  font-weight: 300;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(247, 242, 234, 0.07);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 4;
+  user-select: none;
+}
+
+/* ── DOT NAVIGATION ──────────────────────────────────── */
+.dotNav {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  z-index: 10;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(247, 242, 234, 0.4);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, border-color 0.3s;
+}
+
+.dot:hover {
+  border-color: var(--gold);
+  transform: scale(1.4);
+}
+
+.dotActive {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: scale(1.3);
+}
+
+/* ── PROGRESS BAR ────────────────────────────────────── */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(247, 242, 234, 0.08);
+  z-index: 10;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ── COUNTER ─────────────────────────────────────────── */
+.counter {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 8vw;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  z-index: 10;
+}
+
+.counterCurrent {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  transition: all 0.4s;
+}
+
+.counterSep {
+  font-size: 0.65rem;
+  color: var(--muted);
+  padding: 0 0.2rem;
+}
+
+.counterTotal {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* ── ARROWS ──────────────────────────────────────────── */
+.arrow {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(247, 242, 234, 0.2);
+  border-radius: 50%;
+  color: rgba(247, 242, 234, 0.5);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: border-color 0.3s, color 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateX(-50%) scale(1.1);
+}
+
+.arrowUp   { top: 1.8rem; }
+.arrowDown { bottom: 1.8rem; }
+
+/* ── SCROLL HINT ─────────────────────────────────────── */
+.scrollHint {
+  position: absolute;
+  bottom: 3.5rem;
+  right: 8vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+  animation: fadeInHint 1s 2s both;
+}
+
+.scrollHint span {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scrollArrow {
+  font-size: 1rem;
+  color: var(--gold);
+  animation: bounceDown 1.5s ease-in-out infinite;
+}
+
+/* ── TICKER ──────────────────────────────────────────── */
+.ticker {
+  position: absolute;
+  bottom: 2.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.tickerText {
+  display: block;
+  font-size: 0.52rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(247, 242, 234, 0.3);
+  animation: tickerIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── KEYFRAMES ───────────────────────────────────────── */
+@keyframes enterFromBottom {
+  from { transform: translateY(100%); opacity: 1; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes enterFromTop {
+  from { transform: translateY(-100%); opacity: 1; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes exitToTop {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(-100%); opacity: 1; }
+}
+
+@keyframes exitToBottom {
+  from { transform: translateY(0);   opacity: 1; }
+  to   { transform: translateY(100%); opacity: 1; }
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+@keyframes fadeInHint {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tickerIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .content { left: 6vw; max-width: 85vw; }
+  .name { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .dotNav { right: 1rem; }
+  .bigNumber { display: none; }
+  .scrollHint { display: none; }
+}

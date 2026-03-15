@@ -1,0 +1,318 @@
+/* ── SHARED ──────────────────────────────────────────── */
+.tag {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+/* Reveal base */
+.introLeft, .introRight, .quoteInner, .processTitle,
+.step, .contactInner {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ── MARQUEE ─────────────────────────────────────────── */
+.marqueeWrap {
+  background: var(--gold);
+  padding: 0.75rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marqueeInner {
+  display: inline-flex;
+  gap: 0;
+  animation: marquee 18s linear infinite;
+}
+
+.marqueeItem {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--deep);
+  font-weight: 400;
+  padding: 0 2rem;
+}
+
+.dot { opacity: 0.35; }
+
+/* ── INTRO ───────────────────────────────────────────── */
+.intro {
+  padding: 10rem 8vw 7rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: end;
+}
+
+.introLeft .tag { margin-bottom: 1.4rem; }
+
+.introLeft h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.2vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.introLeft h2 em {
+  font-style: italic;
+  color: var(--blush);
+}
+
+.introLeft { transition-delay: 0s; }
+.introRight { transition-delay: 0.15s; }
+
+.introRight p {
+  font-size: 0.78rem;
+  line-height: 2;
+  color: var(--muted);
+  max-width: 420px;
+  margin-left: auto;
+}
+.introRight p + p { margin-top: 1.3rem; }
+
+/* ── QUOTE ───────────────────────────────────────────── */
+.quoteSec {
+  padding: 8rem 8vw;
+  background: #f0e8dc;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quoteSec::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 18rem;
+  position: absolute;
+  top: -4rem;
+  left: 2rem;
+  color: rgba(196, 118, 106, 0.1);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.quoteInner {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.quoteText {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+  font-style: italic;
+  color: #1e1812;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.quoteAttr {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #8a7e72;
+}
+
+/* ── PROCESS ─────────────────────────────────────────── */
+.process {
+  padding: 9rem 8vw;
+  background: var(--char);
+}
+
+.processTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.step {
+  text-align: center;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.stepIco {
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.3rem;
+  font-size: 1.2rem;
+}
+
+.stepN {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.7rem;
+}
+
+.stepT {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  margin-bottom: 0.9rem;
+  color: var(--cream);
+}
+
+.stepD {
+  font-size: 0.7rem;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+/* ── CONTACT ─────────────────────────────────────────── */
+.contact {
+  padding: 9rem 8vw;
+  background: var(--deep);
+  text-align: center;
+}
+
+.contactInner .tag { text-align: center; }
+
+.contactInner h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+}
+
+.contactInner h2 em { font-style: italic; color: var(--blush); }
+
+.contactInner p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+.contactLinks {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contactBtn {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cream);
+  border: 1px solid rgba(200, 164, 90, 0.35);
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.contactBtn:hover {
+  background: var(--gold);
+  color: var(--deep);
+  border-color: var(--gold);
+}
+
+/* ── FOOTER ──────────────────────────────────────────── */
+.footer {
+  background: #0c0904;
+  padding: 5rem 8vw 2.5rem;
+  border-top: 1px solid #221c15;
+}
+
+.footTop {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.footLogo {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+  color: var(--cream);
+}
+
+.footTag {
+  font-size: 0.7rem;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 260px;
+  margin-bottom: 0.8rem;
+}
+
+.footLocation {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.footCol h4 {
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.3rem;
+}
+
+.footCol ul { list-style: none; }
+.footCol li { margin-bottom: 0.7rem; }
+.footCol a { font-size: 0.72rem; color: var(--muted); transition: color 0.3s; }
+.footCol a:hover { color: var(--cream); }
+
+.footBottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.8rem;
+  border-top: 1px solid #221c15;
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+/* ── KEYFRAMES ───────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 900px) {
+  .intro { grid-template-columns: 1fr; padding: 6rem 6vw 4rem; gap: 2rem; }
+  .introRight p { margin-left: 0; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .footTop { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .steps { grid-template-columns: 1fr; }
+  .footTop { grid-template-columns: 1fr; }
+  .footBottom { flex-direction: column; gap: 0.5rem; }
+}

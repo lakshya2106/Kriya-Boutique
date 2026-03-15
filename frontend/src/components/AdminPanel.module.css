@@ -1,0 +1,436 @@
+/* ── LAYOUT ───────────────────────────────────────────── */
+.admin {
+  display: flex;
+  min-height: 100vh;
+  background: #0e0b08;
+  color: #f7f2ea;
+  font-family: 'Jost', sans-serif;
+}
+
+.loadingFull {
+  display: flex; align-items: center; justify-content: center;
+  height: 100vh; color: #7a6e62; font-size: 0.8rem; letter-spacing: 0.2em;
+}
+
+/* ── SIDEBAR ──────────────────────────────────────────── */
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #0a0806;
+  border-right: 1px solid rgba(200,164,90,0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+}
+
+.sidebarLogo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  font-weight: 300;
+  color: #c8a45a;
+  padding: 0 1.5rem 2rem;
+  border-bottom: 1px solid rgba(200,164,90,0.1);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.sidebarNav { display: flex; flex-direction: column; flex: 1; }
+
+.navItem {
+  text-align: left;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: #7a6e62;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: color 0.2s, background 0.2s;
+  border-left: 2px solid transparent;
+}
+.navItem:hover { color: #f7f2ea; background: rgba(200,164,90,0.05); }
+.navActive { color: #c8a45a !important; border-left-color: #c8a45a; background: rgba(200,164,90,0.07) !important; }
+
+.logoutBtn {
+  margin: 1rem 1.5rem 0;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7a6e62;
+  background: none;
+  border: 1px solid rgba(122,110,98,0.2);
+  padding: 0.6rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.logoutBtn:hover { color: #c4766a; border-color: #c4766a; }
+
+/* ── MAIN ─────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  padding: 2.5rem 3rem;
+  overflow-y: auto;
+  max-width: 1100px;
+}
+
+/* ── TAB HEADER ──────────────────────────────────────── */
+.tabHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(200,164,90,0.1);
+}
+.tabHeader h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 300; font-style: italic;
+  color: #f7f2ea;
+}
+.count {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  color: #c8a45a;
+  border: 1px solid rgba(200,164,90,0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  margin-left: 0.5rem;
+  font-style: normal;
+}
+
+.sectionTitle {
+  font-size: 0.85rem; font-weight: 400;
+  letter-spacing: 0.1em; color: #c8a45a;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase; font-size: 0.6rem; letter-spacing: 0.3em;
+}
+
+/* ── FORMS ───────────────────────────────────────────── */
+.formWrap { max-width: 800px; }
+.formHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem;
+}
+.formHeader h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 300; font-style: italic;
+}
+.formGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; margin-bottom: 1.5rem; }
+.formActions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.2rem; }
+.lbl { font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: #7a6e62; }
+
+.inp {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,164,90,0.15);
+  border-radius: 2px;
+  color: #f7f2ea;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  padding: 0.65rem 0.9rem;
+  outline: none;
+  transition: border-color 0.25s;
+  width: 100%;
+}
+.inp:focus { border-color: rgba(200,164,90,0.5); }
+.inp option { background: #1a1510; }
+.fileInp { background: none; border: 1px dashed rgba(200,164,90,0.2); padding: 0.5rem; cursor: pointer; color: #7a6e62; }
+
+/* ── BUTTONS ─────────────────────────────────────────── */
+.btnPrimary {
+  background: #c8a45a; color: #0e0b08;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.75rem 1.8rem; border-radius: 2px; cursor: pointer;
+  transition: opacity 0.2s; border: none;
+}
+.btnPrimary:hover { opacity: 0.85; }
+.btnPrimary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnGhost {
+  background: transparent; color: #7a6e62;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.75rem 1.8rem; border-radius: 2px; cursor: pointer;
+  border: 1px solid rgba(122,110,98,0.3);
+  transition: color 0.2s, border-color 0.2s;
+}
+.btnGhost:hover { color: #f7f2ea; border-color: rgba(247,242,234,0.3); }
+
+.btnDanger {
+  background: #8a3030; color: #f7f2ea;
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.65rem 1.4rem; border-radius: 2px; cursor: pointer; border: none;
+  transition: opacity 0.2s;
+}
+.btnDanger:hover { opacity: 0.85; }
+
+.btnSm {
+  font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.4rem 0.85rem; border-radius: 2px; cursor: pointer;
+  background: transparent; color: #c8a45a;
+  border: 1px solid rgba(200,164,90,0.3);
+  transition: background 0.2s;
+}
+.btnSm:hover { background: rgba(200,164,90,0.1); }
+
+.btnSmDanger {
+  font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.4rem 0.85rem; border-radius: 2px; cursor: pointer;
+  background: transparent; color: #c4766a;
+  border: 1px solid rgba(196,118,106,0.3);
+  transition: background 0.2s;
+}
+.btnSmDanger:hover { background: rgba(196,118,106,0.1); }
+
+/* ── LIST ITEMS ──────────────────────────────────────── */
+.list { display: flex; flex-direction: column; gap: 2px; }
+.listItem {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(200,164,90,0.07);
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.listItem:hover { background: rgba(200,164,90,0.04); }
+.listImg { width: 52px; height: 64px; object-fit: cover; object-position: top; border-radius: 2px; flex-shrink: 0; }
+.listInfo { flex: 1; }
+.listName { font-size: 0.82rem; color: #f7f2ea; margin-bottom: 0.2rem; }
+.listSub  { font-size: 0.62rem; color: #7a6e62; }
+.listActions { display: flex; gap: 0.5rem; }
+.colorDot { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
+.reviewerInitial {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: #3a2a1e; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: #c8a45a;
+}
+
+.badge {
+  display: inline-block; font-size: 0.48rem; letter-spacing: 0.2em;
+  text-transform: uppercase; background: #c8a45a; color: #0e0b08;
+  padding: 0.2rem 0.5rem; border-radius: 2px; margin-top: 0.3rem;
+}
+
+/* ── PHOTO GRID ───────────────────────────────────────── */
+.photoGrid { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.photoThumb {
+  position: relative; width: 90px; height: 110px;
+  border-radius: 2px; overflow: hidden;
+}
+.photoThumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.photoDelete {
+  position: absolute; top: 4px; right: 4px;
+  background: rgba(138,48,48,0.9); color: #fff;
+  border: none; border-radius: 50%; width: 20px; height: 20px;
+  font-size: 0.6rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* ── SPLIT LAYOUT ─────────────────────────────────────── */
+.splitLayout {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start;
+}
+
+/* ── INSTAGRAM GRID ───────────────────────────────────── */
+.instaGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+.instaThumb { position: relative; aspect-ratio: 1; border-radius: 2px; overflow: hidden; }
+.instaThumb img { width: 100%; height: 100%; object-fit: cover; }
+.instaActions {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 0.3rem; padding: 0.4rem;
+  background: rgba(14,11,8,0.8);
+  opacity: 0; transition: opacity 0.2s;
+}
+.instaThumb:hover .instaActions { opacity: 1; }
+
+/* ── BRAND / HERO ─────────────────────────────────────── */
+.heroPreview { width: 100%; max-height: 280px; object-fit: cover; object-position: top; border-radius: 3px; margin-bottom: 1rem; }
+.helpText { font-size: 0.68rem; color: #7a6e62; margin-bottom: 1rem; line-height: 1.7; }
+
+/* ── TOAST ────────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
+  padding: 0.85rem 1.5rem; border-radius: 3px;
+  font-size: 0.72rem; letter-spacing: 0.05em;
+  animation: toastIn 0.3s ease;
+}
+.toastOk  { background: #1e3a28; color: #6fd89a; border: 1px solid rgba(111,216,154,0.25); }
+.toastErr { background: #3a1e1e; color: #d87a6f; border: 1px solid rgba(216,122,111,0.25); }
+
+/* ── CONFIRM DIALOG ───────────────────────────────────── */
+.confirmBg {
+  position: fixed; inset: 0; z-index: 9998;
+  background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;
+}
+.confirmBox {
+  background: #1a1510; border: 1px solid rgba(200,164,90,0.2);
+  border-radius: 4px; padding: 2rem 2.5rem; min-width: 320px; text-align: center;
+}
+.confirmBox p { font-size: 0.85rem; color: #f7f2ea; margin-bottom: 1.5rem; line-height: 1.6; }
+.confirmBtns { display: flex; gap: 1rem; justify-content: center; }
+
+/* ── LOGIN ────────────────────────────────────────────── */
+.loginWrap {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: #0e0b08;
+}
+.loginBox {
+  width: 100%; max-width: 380px;
+  border: 1px solid rgba(200,164,90,0.15);
+  border-radius: 4px; padding: 3rem 2.5rem;
+  background: #0a0806;
+}
+.loginTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 300; font-style: italic;
+  color: #c8a45a; text-align: center; margin-bottom: 0.3rem;
+}
+.loginSub { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: #7a6e62; text-align: center; margin-bottom: 2rem; }
+.loginForm { display: flex; flex-direction: column; gap: 1rem; }
+.loginErr { font-size: 0.68rem; color: #c4766a; text-align: center; }
+
+/* ── LOADING ──────────────────────────────────────────── */
+.loading { color: #7a6e62; font-size: 0.75rem; letter-spacing: 0.15em; padding: 3rem 0; }
+
+/* ── KEYFRAMES ────────────────────────────────────────── */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .main { padding: 1.5rem; }
+  .formGrid { grid-template-columns: 1fr; }
+  .splitLayout { grid-template-columns: 1fr; }
+  .sidebar { width: 180px; }
+}
+@media (max-width: 640px) {
+  .admin { flex-direction: column; }
+  .sidebar { width: 100%; min-height: auto; position: static; flex-direction: row; flex-wrap: wrap; padding: 1rem; }
+  .sidebarNav { flex-direction: row; flex-wrap: wrap; }
+  .navItem { padding: 0.5rem 0.8rem; }
+}
+
+.seedBtn {
+  margin: 0.5rem 1.5rem 0;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #6fd89a;
+  background: none;
+  border: 1px solid rgba(111,216,154,0.25);
+  padding: 0.6rem 1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.seedBtn:hover { color: #a0f0c0; border-color: rgba(111,216,154,0.5); }
+
+/* ── BRAND SETTINGS SUB-NAV ───────────────────────────── */
+.subNav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0 0 1.5rem 0;
+  border-bottom: 1px solid rgba(200,164,90,0.15);
+  margin-bottom: 1.5rem;
+}
+.subNavBtn {
+  background: none;
+  border: 1px solid rgba(200,164,90,0.25);
+  color: #a0947a;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.subNavBtn:hover { color: #c8a45a; border-color: rgba(200,164,90,0.5); }
+.subNavActive { color: #c8a45a !important; border-color: #c8a45a !important; background: rgba(200,164,90,0.08) !important; }
+
+.settingsBlock { max-width: 700px; }
+
+/* ── PROCESS STEP CARDS ────────────────────────────────── */
+.processStepCard {
+  background: rgba(200,164,90,0.04);
+  border: 1px solid rgba(200,164,90,0.15);
+  border-radius: 4px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+.processStepHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.processStepNum {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #c8a45a;
+  font-weight: 600;
+}
+.processStepFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.processStepFields .field:last-child {
+  grid-column: 1 / -1;
+}
+
+/* ── SHOWCASE TOGGLE ───────────────────────────────────── */
+.showcaseToggle {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  background: rgba(200,164,90,0.06);
+  border: 1px solid rgba(200,164,90,0.25);
+  border-radius: 4px;
+}
+.showcaseLabel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+.showcaseCheck {
+  width: 18px;
+  height: 18px;
+  accent-color: #c8a45a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.showcaseText {
+  font-size: 0.8rem;
+  color: #c8a45a;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+.showcaseHint {
+  font-size: 0.65rem;
+  color: var(--muted, #6b6055);
+  width: 100%;
+  margin-top: 0.3rem;
+  padding-left: 2rem;
+}
+.showcasePill {
+  display: inline-block;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8a45a;
+  border: 1px solid rgba(200,164,90,0.4);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  margin-left: 0.4rem;
+}

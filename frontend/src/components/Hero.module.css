@@ -1,0 +1,140 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 60% 45%, #2c1a0e 0%, #0e0b08 65%);
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 8vw;
+  /* text lives in left 45% — photo occupies right */
+  max-width: 48%;
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-size: 0.58rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.8rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.4s forwards;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 0.92;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.6s forwards;
+}
+
+.accent {
+  color: var(--blush);
+  font-style: normal;
+  display: block;
+}
+
+.sub {
+  margin-top: 2rem;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  animation: fadeUp 1s 1s forwards;
+}
+
+.rightLabel {
+  position: absolute;
+  right: 6vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+  pointer-events: none;
+}
+
+.labelTag {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.labelName {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+}
+
+.scrollCue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.6s forwards;
+}
+
+.scrollCue span {
+  font-size: 0.5rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 55px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: pulse 2s infinite;
+}
+
+.bottomFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--deep));
+  z-index: 5;
+  pointer-events: none;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@media (max-width: 768px) {
+  .content { padding-left: 6vw; }
+  .rightLabel { display: none; }
+}

@@ -1,0 +1,53 @@
+/* Use transform instead of top/left — GPU accelerated, no glitch */
+.dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  /* Offset so center of dot = cursor tip */
+  margin: -3px 0 0 -3px;
+  opacity: 0;
+  /* NO transition on transform — RAF handles it */
+  transition: opacity 0.3s, width 0.2s, height 0.2s;
+  will-change: transform;
+}
+
+.dotHide {
+  width: 0;
+  height: 0;
+}
+
+.ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(200, 164, 90, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  /* Offset so center of ring = cursor */
+  margin: -17px 0 0 -17px;
+  opacity: 0;
+  /* Only transition size/color, NOT transform (RAF handles that) */
+  transition: opacity 0.3s, width 0.25s ease, height 0.25s ease,
+              border-color 0.25s, margin 0.25s;
+  will-change: transform;
+}
+
+.ring.enlarged {
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-color: rgba(200, 164, 90, 0.85);
+  background: rgba(200, 164, 90, 0.05);
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) {
+  .dot, .ring { display: none; }
+}

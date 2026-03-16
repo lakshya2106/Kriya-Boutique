@@ -3,7 +3,7 @@ import { authAPI, dressAPI, categoryAPI, testimonialAPI, instaAPI, brandAPI, her
 import Cursor from './Cursor'
 import styles from './AdminPanel.module.css'
 
-const BASE_URL = (import.meta.env.FRONTEND_API_URL || 'http://localhost:5000/api').replace('/api', '')
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')
 
 // ── SMALL HELPERS ─────────────────────────────────────
 function Toast({ msg, type, onClose }) {
@@ -666,7 +666,7 @@ export default function AdminPanel() {
         </nav>
         <button className={styles.seedBtn} onClick={async () => {
           try {
-            const r = await fetch(`${(import.meta.env.FRONTEND_API_URL||'http://localhost:5000/api')}/seed`, {
+            const r = await fetch(`${(import.meta.env.VITE_API_URL||'http://localhost:5000/api')}/seed`, {
               method: 'POST',
               headers: { Authorization: `Bearer ${localStorage.getItem('kb_admin_token')}` }
             })

@@ -2,7 +2,7 @@
 // All backend calls go through this file.
 // Change BASE_URL when you deploy the backend.
 
-const BASE_URL = import.meta.env.FRONTEND_API_URL || 'http://localhost:5000/api'
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 
 // ── HELPERS ───────────────────────────────────────────
 function getToken() {

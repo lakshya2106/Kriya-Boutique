@@ -22,7 +22,7 @@ app.use(cors({
       return callback(null, true)
     }
     // Allow your configured frontend URL (Vercel etc.)
-    const allowed = (process.env.FRONTEND_API_URL || '').split(',').map(u => u.trim()).filter(Boolean)
+    const allowed = (process.env.VITE_API_URL || '').split(',').map(u => u.trim()).filter(Boolean)
     if (allowed.includes(origin)) return callback(null, true)
     // Block unknown origins in production
     callback(new Error(`CORS: origin ${origin} not allowed`))

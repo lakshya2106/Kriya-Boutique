@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useInView } from '../hooks/useScroll'
 import styles from './DressCard.module.css'
 
-const BASE_URL = import.meta.env.FRONTEND_API_URL?.replace('/api', '') || 'http://localhost:5000'
+const BASE_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'
 const photoSrc = (p) => p?.startsWith('/uploads/') ? `${BASE_URL}${p}` : p
 
 export default function DressCard({ dress, index }) {

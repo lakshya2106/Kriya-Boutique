@@ -3,7 +3,7 @@ import { useInsta, useBrand } from '../hooks/useAPI'
 import { useInView } from '../hooks/useScroll'
 import styles from './InstagramGallery.module.css'
 
-const BASE_URL = (import.meta.env.FRONTEND_API_URL || 'http://localhost:5000/api').replace('/api', '')
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')
 const photoSrc = (p) => p?.startsWith('/uploads/') ? `${BASE_URL}${p}` : (p || '/lehenga1.png')
 
 export default function InstagramGallery() {

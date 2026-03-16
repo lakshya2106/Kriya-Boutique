@@ -66,7 +66,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { dressAPI, categoryAPI, testimonialAPI, instaAPI, brandAPI, heroAPI } from '../services/api'
 
-const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')
+const BASE_URL = (import.meta.env.FRONTEND_API_URL || 'http://localhost:5000/api').replace('/api', '')
 
 function useFetch(fetcher, initial = null) {
   const [data,    setData]    = useState(initial)

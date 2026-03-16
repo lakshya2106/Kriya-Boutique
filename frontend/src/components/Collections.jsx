@@ -3,7 +3,7 @@
 // import { useDresses, useCategories, useBrand } from '../hooks/useAPI'
 // import styles from './Collections.module.css'
 
-// const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')
+// const BASE_URL = (import.meta.env.FRONTEND_API_URL || 'http://localhost:5000/api').replace('/api', '')
 // const photoSrc = (p) => p?.startsWith('/uploads/') ? `${BASE_URL}${p}` : (p || '/lehenga1.png')
 
 // const BADGE_LABELS = {
@@ -141,7 +141,7 @@ import { useInView } from '../hooks/useScroll'
 import { useDresses, useCategories, useBrand } from '../hooks/useAPI'
 import styles from './Collections.module.css'
 
-const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '')
+const BASE_URL = (import.meta.env.FRONTEND_API_URL || 'http://localhost:5000/api').replace('/api', '')
 const photoSrc = (p) => p?.startsWith('/uploads/') ? `${BASE_URL}${p}` : (p || '/lehenga1.png')
 
 const BADGE_LABELS = {

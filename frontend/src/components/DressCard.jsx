@@ -25,6 +25,8 @@ export default function DressCard({ dress, index }) {
 
   useEffect(() => {
     if (!visible) return
+    // If there's 0–1 photo, auto-rotation doesn't make sense (avoid `% 0` / NaN)
+    if (!Array.isArray(dress.photos) || dress.photos.length < 2) return
     autoTimer.current = setInterval(() => {
       setActivePhoto(p => (p + 1) % dress.photos.length)
     }, 3500)
@@ -43,6 +45,7 @@ export default function DressCard({ dress, index }) {
   const handleDotClick = (i) => {
     setActivePhoto(i)
     clearInterval(autoTimer.current)
+    if (!dress.photos || dress.photos.length < 2) return
     autoTimer.current = setInterval(() => {
       setActivePhoto(p => (p + 1) % dress.photos.length)
     }, 3500)

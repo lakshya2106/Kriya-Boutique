@@ -4,6 +4,7 @@ const auth   = require('../middleware/auth')
 const upload = require('../middleware/upload')
 const fs     = require('fs')
 const path   = require('path')
+const { destroyCloudinaryAssetByUrl, isCloudinaryUrl } = require('../utils/cloudinary')
 
 // GET /api/dresses — public, all dresses
 router.get('/', async (req, res) => {
@@ -39,7 +40,7 @@ router.post('/', auth, upload.array('photos', 5), async (req, res) => {
   try {
     const data  = JSON.parse(req.body.data || '{}')
     const files = req.files || []
-    const photoPaths = files.map(f => `/uploads/${f.filename}`)
+    const photoPaths = files.map(f => f.path || `/uploads/${f.filename}`)
 
     // Auto-assign num if not provided
     if (!data.num) {
@@ -63,7 +64,7 @@ router.put('/:id', auth, upload.array('photos', 5), async (req, res) => {
   try {
     const data  = JSON.parse(req.body.data || '{}')
     const files = req.files || []
-    const newPhotoPaths = files.map(f => `/uploads/${f.filename}`)
+    const newPhotoPaths = files.map(f => f.path || `/uploads/${f.filename}`)
 
     if (typeof data.swatches === 'string') data.swatches = JSON.parse(data.swatches)
     if (typeof data.colors   === 'string') data.colors   = JSON.parse(data.colors)
@@ -88,10 +89,18 @@ router.delete('/:id', auth, async (req, res) => {
     if (!dress) return res.status(404).json({ error: 'Not found' })
 
     // Delete photo files from disk
-    dress.photos.forEach(p => {
-      const fp = path.join(__dirname, '../', p)
-      if (fs.existsSync(fp)) fs.unlinkSync(fp)
-    })
+    if (Array.isArray(dress.photos)) {
+      for (const p of dress.photos) {
+        if (isCloudinaryUrl(p)) {
+          await destroyCloudinaryAssetByUrl(p)
+          continue
+        }
+        const photoPath = String(p || '').replace(/^\/+/, '') // DB stores paths like `/uploads/<file>`
+        if (!photoPath) continue
+        const fp = path.join(__dirname, '..', photoPath)
+        if (fs.existsSync(fp)) fs.unlinkSync(fp)
+      }
+    }
 
     res.json({ message: 'Deleted successfully' })
   } catch (err) {
@@ -110,8 +119,13 @@ router.delete('/:id/photo', auth, async (req, res) => {
     await dress.save()
 
     // Delete file from disk
-    const fp = path.join(__dirname, '../', photoPath)
-    if (fs.existsSync(fp)) fs.unlinkSync(fp)
+    if (isCloudinaryUrl(photoPath)) {
+      await destroyCloudinaryAssetByUrl(photoPath)
+    } else {
+      const normalized = String(photoPath || '').replace(/^\/+/, '')
+      const fp = path.join(__dirname, '..', normalized)
+      if (fs.existsSync(fp)) fs.unlinkSync(fp)
+    }
 
     res.json(dress)
   } catch (err) {

@@ -4,6 +4,7 @@ const auth   = require('../middleware/auth')
 const upload = require('../middleware/upload')
 const fs     = require('fs')
 const path   = require('path')
+const { destroyCloudinaryAssetByUrl, isCloudinaryUrl } = require('../utils/cloudinary')
 
 // ══════════════════════════════════════════════════════
 //  CATEGORIES
@@ -96,7 +97,7 @@ router.get('/insta', async (req, res) => {
 router.post('/insta', auth, upload.single('photo'), async (req, res) => {
   try {
     const data = { ...req.body }
-    if (req.file) data.photo = `/uploads/${req.file.filename}`
+    if (req.file) data.photo = req.file.path || `/uploads/${req.file.filename}`
     const post = await InstaPost.create(data)
     res.status(201).json(post)
   } catch (err) { res.status(400).json({ error: err.message }) }
@@ -106,7 +107,7 @@ router.post('/insta', auth, upload.single('photo'), async (req, res) => {
 router.put('/insta/:id', auth, upload.single('photo'), async (req, res) => {
   try {
     const data = { ...req.body }
-    if (req.file) data.photo = `/uploads/${req.file.filename}`
+    if (req.file) data.photo = req.file.path || `/uploads/${req.file.filename}`
     const post = await InstaPost.findByIdAndUpdate(req.params.id, data, { new: true })
     if (!post) return res.status(404).json({ error: 'Not found' })
     res.json(post)
@@ -117,8 +118,11 @@ router.put('/insta/:id', auth, upload.single('photo'), async (req, res) => {
 router.delete('/insta/:id', auth, async (req, res) => {
   try {
     const post = await InstaPost.findByIdAndDelete(req.params.id)
-    if (post?.photo?.startsWith('/uploads/')) {
-      const fp = path.join(__dirname, '../', post.photo)
+    if (isCloudinaryUrl(post?.photo)) {
+      await destroyCloudinaryAssetByUrl(post.photo)
+    } else if (post?.photo?.startsWith('/uploads/')) {
+      const normalized = String(post.photo || '').replace(/^\/+/, '')
+      const fp = path.join(__dirname, '..', normalized)
       if (fs.existsSync(fp)) fs.unlinkSync(fp)
     }
     res.json({ message: 'Deleted' })
@@ -171,11 +175,14 @@ router.get('/hero', async (req, res) => {
 router.post('/hero', auth, upload.single('photo'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No photo uploaded' })
-    const photo = `/uploads/${req.file.filename}`
+    const photo = req.file.path || `/uploads/${req.file.filename}`
     // Delete old hero file
     const old = await Hero.findOne().sort({ createdAt: -1 })
-    if (old?.photo?.startsWith('/uploads/')) {
-      const fp = path.join(__dirname, '../', old.photo)
+    if (isCloudinaryUrl(old?.photo)) {
+      await destroyCloudinaryAssetByUrl(old.photo)
+    } else if (old?.photo?.startsWith('/uploads/')) {
+      const normalized = String(old.photo || '').replace(/^\/+/, '')
+      const fp = path.join(__dirname, '..', normalized)
       if (fs.existsSync(fp)) fs.unlinkSync(fp)
     }
     await Hero.deleteMany({}) // only keep one hero
